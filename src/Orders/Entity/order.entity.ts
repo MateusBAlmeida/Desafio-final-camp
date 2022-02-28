@@ -3,7 +3,7 @@ import { User } from "../../Users/Entity/user.entity";
 
 export class Order {
     id: string;
-    client: User;
+    client: User['id'];
     address: string;
-    items: Product[];
+    items: Product['id'];
 }

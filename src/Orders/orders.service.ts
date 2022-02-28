@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { isNotEmpty } from "class-validator";
+import { v4 as uuidV4 } from "uuid";
 import { CreateOrderDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Order } from "./Entity/order.entity";
@@ -8,10 +8,10 @@ import { Order } from "./Entity/order.entity";
 export class OrdersService {
     private database: Order[] = [];
 
-    create(CreateOrderDto: CreateOrderDto) {
+    create(createOrderDto: CreateOrderDto) {
         const newOrder = {
             id: uuidV4(),
-            ...CreateOrderDto,
+            ...createOrderDto,
 
         };
 
@@ -19,15 +19,15 @@ export class OrdersService {
         return newOrder;
     }
 
-    findAll(){
+    findAll() {
         return this.database;
     }
 
-    findOne(id: string){
-        return this.database.find((item) => item.id ===id);
+    findOne(id: string) {
+        return this.database.find((item) => item.id === id);
     }
 
-    update(id: string, updateOrderDto: UpdateOrderDto){
+    update(id: string, updateOrderDto: UpdateOrderDto) {
         const index = this.database.findIndex((item) => item.id === id);
         const order = this.database.find((item) => item.id === id);
 
@@ -41,7 +41,7 @@ export class OrdersService {
         return this.database[index];
     }
 
-    remove(id: string){
+    remove(id: string) {
         this.database = this.database.filter((item) => item.id !== id);
     }
 }
